@@ -6,12 +6,6 @@ from . import views
 urlpatterns = [
     path('', views.Home.as_view(), name="home"),
     path('how-to-use/', views.HowTo.as_view(), name="howto"), # <- new route
-    path('profile/', views.GamerProfile.as_view(), name='profile'),
-    path('profile/new/', views.ProfileCreate.as_view(), name="profile_create"),
-    path('profile/<int:pk>/update',views.ProfileUpdate.as_view(), name="profile_update" ),
-    path('profile/<int:pk>/delete',views.ProfileDelete.as_view(), name="profile_delete"),
-    path('profile/class', views.GameClass.as_view(), name='gameclasses'),
-    path('profile/class/new/', views.CreateClass.as_view(), name="create_class"),
     path('jobboard/', views.ListsPost.as_view(), name='gamepost_list'),
     path('jobboard/<int:pk>/', views.JobDetail.as_view(), name="job_detail"),
     path('jobboard/new', views.NewJobPost.as_view(), name="jobpost_create"),
