@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<h1 class="title pt-5">Current Character Classes:</h1>
+<a class="button is-dark" href="{% url 'create_class' %}">Add Class</a>
+<div class="gallery">
+  {% for class in classes %}
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-square">
+          <img src="{{class.emblem}}" alt="{{class.classtype}}" />
+        </figure>
+      </div>
+      <div class="card-header">
+        <p class="card-header-title">{{class.classtype}}</p>
+        <p class="card-header-title">{{class.level}}</p>
+      </div>
+    </div>
+  </a>
+  {% empty %}
+  <article class="message">
+    <div class="message-header">
+      <p>No Class Available</p>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
