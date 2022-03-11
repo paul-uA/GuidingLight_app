@@ -1,4 +1,5 @@
 
+from dataclasses import fields
 from pyexpat import model
 from tempfile import template
 from django.shortcuts import render
@@ -94,6 +95,8 @@ class GameClass(TemplateView):
         else:
             context["artists"] = Artist.objects.all()
         return context
+    
+    
 class CreateClass(CreateView):
     model = GameClass
     fields = ['classtype', 'level', 'emblem']
@@ -110,8 +113,12 @@ class ListsPost(ListView):
 
 class JobDetail(DetailView):
     model = JobPost
-    template_name = "jobpost_detail.html"
+    template_name="jobpost_detail.html"
     
+class NewJobPost(CreateView):
+     model= JobPost
+     template_name= "new_jobpost.html"  
+     fields= '__all__' 
     
 #------------ Auth Views ---------------------------- 
     
