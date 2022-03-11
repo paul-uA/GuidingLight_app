@@ -1,9 +1,11 @@
 
+from pyexpat import model
+from tempfile import template
 from django.shortcuts import render
 from django.views import View # class based "generic" view - from django - 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import DetailView
+from django.views.generic import DetailView , ListView
 
 from django.http import HttpResponse # manually send back a response (either a template or a text message) 
 from .models import Profile , GameClass , JobPost 
@@ -26,7 +28,10 @@ class Home(TemplateView):
 
 class HowTo(TemplateView):  
     template_name = "howtouse.html"
-   
+
+
+# ------------------ User Game Profile ---------------------
+
 @ method_decorator (login_required, name='dispatch')  
 class GamerProfile(TemplateView):
     template_name = "profile.html"
@@ -72,6 +77,9 @@ class ProfileDelete(DeleteView):
     template_name = "profile_delete_confirmation.html" #get - url 
     success_url = 'profile_create'
 
+
+# ------------------ Game Class ----------------------------------
+
 class GameClass(TemplateView):
     template_name = "class_list.html"
 
@@ -92,11 +100,20 @@ class CreateClass(CreateView):
     template_name = "class_create.html"
     success_url = "/profile/class/"
 
-class ListsPost(TemplateView):
+
+# ---------------------------Job Board stuff ---------------------------------------
+
+class ListsPost(ListView):
     model = JobPost
     template_name="post_list.html"
 
+
+class JobDetail(DetailView):
+    model = JobPost
+    template_name = "jobpost_detail.html"
     
+    
+#------------ Auth Views ---------------------------- 
     
 class Signup(View):
     

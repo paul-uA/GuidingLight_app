@@ -31,15 +31,11 @@ class GameClass(models.Model):
     def __str__(self):
         return self.classtype
   
-
-class GamePost(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    bungieid = models.CharField(max_length=100)
-    activity_name = models.CharField(max_length=200)
-    activity_rank = models.CharField(max_length=150)
-    
 class JobPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     bungieid = models.CharField(max_length=100)
     activity_name = models.CharField(max_length=200)
     activity_rank = models.CharField(max_length=150)
+    
+    def __str__(self):
+        return self.activity_name + " | " + str(self.user)
