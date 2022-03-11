@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime, date
 from django.urls import reverse
 
 
@@ -36,9 +37,12 @@ class GameClass(models.Model):
   
 class JobPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
     bungieid = models.CharField(max_length=100)
     activity_name = models.CharField(max_length=200)
     activity_rank = models.CharField(max_length=150)
+    notes = models.TextField(max_length=500)
+    
     
     def __str__(self):
         return self.activity_name + " | " + str(self.user)

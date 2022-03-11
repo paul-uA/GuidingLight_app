@@ -106,7 +106,7 @@ class CreateClass(CreateView):
 class ListsPost(ListView):
     model = JobPost
     template_name="post_list.html"
-
+    ordering= ['-date_created']
 
 class JobDetail(DetailView):
     model = JobPost
