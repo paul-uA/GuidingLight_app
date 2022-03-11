@@ -2,11 +2,13 @@
 
 {% block content %}
 
-<h1>{{post.activity_name}}</h1>
-<p>{{post.activity_rank}} </p>
-<p>By:{{post.bungieid}} <p><br/>
-<br/>    
+<h1>{{jobpost.activity_name}}</h1>
+<p>{{jobpost.activity_rank}} </p>
+<p>By:{{jobpost.bungieid}} <p><br/>
+<br/> 
+<a href="{%url 'jobpost_update' jobpost.pk %}"> Update </a> 
+<a href="{%url 'jobpost_delete' jobpost.pk %}"> Delete </a> 
 <br/> 
 <br/>
 <a href="{%url 'gamepost_list' %}"> Back to List </a> 
-{% endblock content %}
+{% endblock %}

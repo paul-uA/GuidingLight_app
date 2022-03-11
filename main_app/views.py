@@ -1,17 +1,14 @@
-
-from dataclasses import fields
-from pyexpat import model
-from tempfile import template
 from django.shortcuts import render
 from django.views import View # class based "generic" view - from django - 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView , ListView
 
-from django.http import HttpResponse # manually send back a response (either a template or a text message) 
+from django.http import HttpResponse 
 from .models import Profile , GameClass , JobPost 
+from  .forms import PostForm
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 # imports related to signup
 from django.contrib.auth import login
@@ -117,9 +114,19 @@ class JobDetail(DetailView):
     
 class NewJobPost(CreateView):
      model= JobPost
+     form_class= PostForm
      template_name= "new_jobpost.html"  
      fields= '__all__' 
-    
+     
+class UpdateJob(UpdateView):
+    model = JobPost
+    template_name = 'update_job.html'
+    fields=['activity_name','activity_rank']
+
+class DeleteJob(DeleteView):
+    model= JobPost    
+    template_name = 'delete_jobpost.html'
+    success_url = reverse_lazy('gamepost_list')
 #------------ Auth Views ---------------------------- 
     
 class Signup(View):
