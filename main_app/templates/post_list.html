@@ -5,6 +5,7 @@
 <ul>
 {%for post in object_list%}
     <li><a href ="{% url 'job_detail' post.pk %}">{{post.activity_name}}</a> - by {{post.bungieid}} <br/>
+        {{post.category}}<br/>
         {{post.activity_rank}}</li>
 
 

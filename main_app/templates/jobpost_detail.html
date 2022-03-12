@@ -8,8 +8,10 @@
 <br/> 
 {{jobpost.notes}}
 <br/> 
+{% if user.is_authenticated %}
 <a href="{%url 'jobpost_update' jobpost.pk %}"> Update </a> 
 <a href="{%url 'jobpost_delete' jobpost.pk %}"> Delete </a> 
+{%endif%}
 <br/> 
 
 <br/>

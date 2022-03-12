@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% if user.is_authenticated %}
 <h1>Delete Job Post</h1>
 <h3>{{jobpost.activity_name}}
 <form method="POST">
     {% csrf_token %}
     <strong>Are your sure?? </strong>
     <input type="submit" value="Delete" />
-
+{% else %}
+<h1> Login to delete Job Post</h1>
+{%endif%}
 <a href="{%url 'gamepost_list' %}"> Back to List </a> 
 {% endblock content %}

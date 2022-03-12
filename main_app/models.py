@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, date
@@ -35,6 +36,15 @@ class GameClass(models.Model):
     def __str__(self):
         return self.classtype
   
+class ActivityType(models.Model):
+    name= models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('job_detail', kwargs={'pk':self.pk})
+    
 class JobPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -42,6 +52,8 @@ class JobPost(models.Model):
     activity_name = models.CharField(max_length=200)
     activity_rank = models.CharField(max_length=150)
     notes = models.TextField(max_length=500)
+    category = models.OneToOneField(ActivityType, on_delete=models.CASCADE)
+    
     
     
     def __str__(self):
@@ -50,6 +62,3 @@ class JobPost(models.Model):
     def get_absolute_url(self):
         return reverse('job_detail', kwargs={'pk':self.pk})
     
-    
-    
-        
