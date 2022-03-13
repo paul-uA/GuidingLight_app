@@ -12,7 +12,8 @@ from django.urls import reverse, reverse_lazy
 
 # imports related to signup
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm , UserChangeForm
+from django.contrib.auth.forms import UserCreationForm , UserChangeForm, PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 
 # authorization decorators: 
 from django.contrib.auth.decorators import login_required
@@ -41,6 +42,12 @@ class ProfileUpdate(UpdateView):
         def get_object(self):
             return self.request.user
     
+class ChangePassword(PasswordChangeView):
+    form_class =PasswordChangeForm
+    success_url = reverse_lazy('password_success')
+    
+def PasswordSuccess(request):
+    return render(request, 'registration/password_success.html',{})
             
 # class GamerProfile(TemplateView):
 #     template_name = "profile.html"
