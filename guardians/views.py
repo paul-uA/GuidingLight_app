@@ -1,13 +1,19 @@
 
-from django.shortcuts import render
+from ast import arg
+from multiprocessing import context
+from pyexpat import model
+from webbrowser import get
+from django.shortcuts import get_object_or_404, render
 from django.views import View # class based "generic" view - from django - 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView , ListView
+
+from main_app.models import GProfile
 from .forms import SignUpForm, ProfileEdit
 
 from django.http import HttpResponse 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_list_or_404
 from django.urls import reverse, reverse_lazy
 
 # imports related to signup
@@ -48,9 +54,27 @@ class ChangePassword(PasswordChangeView):
     
 def PasswordSuccess(request):
     return render(request, 'registration/password_success.html',{})
-            
+
+class ShowGProfile(DetailView):
+    model = GProfile  
+    template_name = 'registration/user_gprofile.html' 
+    
+    def get_context_data(self, **kwargs):
+        gprofile= GProfile.objects.all()
+        context = super(ShowGProfile, self).get_context_data(**kwargs)
+        user_info = get_object_or_404(GProfile, user_id=self.kwargs['pk'])
+        print(user_info)
+        context['user_info'] = user_info    
+        return context
+    
+
+class EditGProfile(UpdateView):  
+    model = GProfile
+    tempalte_name= 'registration/edit_gprofile.html' 
+    
+     
 # class GamerProfile(TemplateView):
-#     template_name = "profile.html"
+#     template_name = "profile.html" 
 
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)

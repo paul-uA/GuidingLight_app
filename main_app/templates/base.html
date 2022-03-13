@@ -32,9 +32,9 @@
             <div class="navbar-menu navbar-end">
                 {% if user.is_authenticated %}
                 <div class="navbar-menu navbar-end">
-                    <span class="navbar-item">Welcome: {{user.username}}</span> {% comment %}<a href="{% url 'profile' %}"></a> {% endcomment %}
+                    <span class="navbar-item">Welcome: <a class="navbar-item" href="{% url 'edit_profile' %}">{{user.username}}</a></span> {% comment %}<a href="{% url 'profile' %}"></a> {% endcomment %}
                     <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
-                    <a class="navbar-item" href="{% url 'edit_profile' %}">Edit Profile</a>
+                    <a class="navbar-item" href="{% url 'show_gprofile' user.pk %}">GProfile</a>
                 </div>
         {% else %}
                 <div class="navbar-menu navbar-end">

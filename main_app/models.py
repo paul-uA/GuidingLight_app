@@ -24,6 +24,21 @@ class Profile(models.Model):
 
     class Meta:
         ordering = ['bungiename']
+
+class GProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bungiename = models.CharField(max_length=100,default='BungieID#1111', editable=True, unique=True)
+    img = models.CharField(max_length=500, default='https://www.bungie.net/img/profile/avatars/bungie_day_15_29.jpg')
+    bio = models.TextField(max_length=500)
+    bungieID = models.CharField(max_length=100)
+    bungieIDLong = models.CharField(max_length=100)
+    gamertag = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    # Here is our new column
+
+    def __str__(self):
+        return str(self.user)
+    
         
         
 class GameClass(models.Model):
