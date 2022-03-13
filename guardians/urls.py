@@ -1,11 +1,11 @@
 from django.urls import path
-from guardians.views import UserRegister
+from .views import UserRegister, ProfileUpdate
 
 
 # this like app.use() in express
 urlpatterns = [
     path('register/', UserRegister.as_view(), name='register'),
-     
+    path('edit/', ProfileUpdate.as_view(), name='edit_profile'),
  
 #  path('profile/', views.GamerProfile.as_view(), name='profile'),
 #  path('profile/new/', views.ProfileCreate.as_view(), name="profile_create"),

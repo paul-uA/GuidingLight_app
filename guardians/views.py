@@ -1,11 +1,10 @@
-from re import template
-from venv import create
+
 from django.shortcuts import render
 from django.views import View # class based "generic" view - from django - 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView , ListView
-from .forms import UserCreationForm
+from .forms import SignUpForm, ProfileEdit
 
 from django.http import HttpResponse 
 from django.shortcuts import redirect
@@ -13,7 +12,7 @@ from django.urls import reverse, reverse_lazy
 
 # imports related to signup
 from django.contrib.auth import login
-# from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm , UserChangeForm
 
 # authorization decorators: 
 from django.contrib.auth.decorators import login_required
@@ -21,20 +20,28 @@ from django.utils.decorators import method_decorator
 
 class UserRegister(View):
     def get(self, request):
-        form = UserCreationForm()
+        form = SignUpForm
         context = {"form": form}
         return render(request, "registration/register.html", context)
     # on form ssubmit validate the form and login the user.
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('login')
         else:
             context = {"form": form}
             return render(request, "registration/register.html", context)
-        
+
+class ProfileUpdate(UpdateView):
+        form_class = ProfileEdit
+        template_name = 'registration/profile_update.html'
+        success_url = reverse_lazy('home')
+        def get_object(self):
+            return self.request.user
+    
+            
 # class GamerProfile(TemplateView):
 #     template_name = "profile.html"
 

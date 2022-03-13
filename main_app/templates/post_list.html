@@ -10,7 +10,8 @@ By Catergory:
 <br/>
 <ul>
 {%for post in jobpost%}
-    <li><a href ="{% url 'job_detail' post.pk %}">{{post.activity_name}}</a> - by {{post.bungieid}} <br/>
+    <li><a href ="{% url 'job_detail' post.pk %}">{{post.activity_name}}</a> <br/>
+        - by {{post.bungieid}}
         {{post.category}}<br/>
         {{post.activity_rank}}</li>
 

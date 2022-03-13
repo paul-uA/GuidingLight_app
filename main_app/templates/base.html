@@ -34,6 +34,7 @@
                 <div class="navbar-menu navbar-end">
                     <span class="navbar-item">Welcome: {{user.username}}</span> {% comment %}<a href="{% url 'profile' %}"></a> {% endcomment %}
                     <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
+                    <a class="navbar-item" href="{% url 'edit_profile' %}">Edit Profile</a>
                 </div>
         {% else %}
                 <div class="navbar-menu navbar-end">

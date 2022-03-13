@@ -1,13 +1,20 @@
-from pyexpat import model
-from  django.contrib.auth.forms import UserCreationForm
+
+from  django.contrib.auth.forms import UserCreationForm, UserChangeForm
+
 from django.contrib.auth.models import User
 from django import forms
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField()
-    first_name = forms.CharField(max_length=150)
-    last_name = forms.CharField(max_length=150)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     
     class Meta:
         model= User
-        field = ['username','first_name','last_name','email','password1','password2']
+        fields = ['username','email','password1','password2']
+        
+class ProfileEdit(UserChangeForm):
+    usernamer = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model= User
+        fields = ['username','email']        
