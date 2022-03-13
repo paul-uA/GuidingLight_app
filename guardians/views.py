@@ -5,6 +5,7 @@ from django.views import View # class based "generic" view - from django -
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView , ListView
+from .forms import UserCreationForm
 
 from django.http import HttpResponse 
 from django.shortcuts import redirect
@@ -12,7 +13,7 @@ from django.urls import reverse, reverse_lazy
 
 # imports related to signup
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 
 # authorization decorators: 
 from django.contrib.auth.decorators import login_required

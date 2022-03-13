@@ -1,4 +1,4 @@
-from unicodedata import category
+
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, date
@@ -52,7 +52,7 @@ class JobPost(models.Model):
     activity_name = models.CharField(max_length=200)
     activity_rank = models.CharField(max_length=150)
     notes = models.TextField(max_length=500)
-    category = models.OneToOneField(ActivityType, on_delete=models.CASCADE)
+    category = models.ForeignKey(ActivityType, on_delete=models.CASCADE)
     
     
     

@@ -6,15 +6,15 @@ from .models import JobPost , ActivityType
 # for item in choices:
 #     choice_list.append(item)
 
-# class PostForm(forms.Form):
-#     class Meta:
-#         model = JobPost
-#         fields = ('activity_name' , 'activity_rank', 'bungieid','category')
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = JobPost
+        fields = ('activity_name','activity_rank', 'bungieid','notes','category')
         
-#         widgets = {
-#             'activity_name' : forms.TextInput(attrs={'class': 'form-control'}),
-#             'bungieid' : forms.TextInput(attrs={'class': 'form-control'}),
-#             'activity_rank' : forms.TextInput(attrs={'class': 'form-control'})
+        widgets = {
+            'activity_name' : forms.TextInput(attrs={'class': 'form-control'}),
+            'bungieid' : forms.TextInput(attrs={'class': 'form-control'}),
+            'activity_rank' : forms.TextInput(attrs={'class': 'form-control'})
             
-#         }
+        }
         

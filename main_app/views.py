@@ -1,3 +1,6 @@
+from pyexpat import model
+from unicodedata import category, name
+from urllib import request
 from django.shortcuts import render
 from django.views import View # class based "generic" view - from django - 
 from django.views.generic.base import TemplateView
@@ -5,8 +8,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView , ListView
 
 from django.http import HttpResponse 
-from .models import Profile , GameClass , JobPost 
-# from  .forms import PostForm
+from .models import ActivityType, Profile , GameClass , JobPost 
+from  .forms import PostForm
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 
@@ -31,10 +34,17 @@ class HowTo(TemplateView):
 
 # ---------------------------Job Board stuff ---------------------------------------
 
-class ListsPost(ListView):
-    model = JobPost
+class ListsPost(TemplateView):
     template_name="post_list.html"
-    ordering= ['-date_created']
+    # model = JobPost
+    # ordering= ['-date_created']
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["jobpost"] = JobPost.objects.all() # Here we are using the model to query the database for us.
+        context['category']= ActivityType.objects.all()
+        print(context)
+        return context
+        
 
 class JobDetail(DetailView):
     model = JobPost
@@ -42,9 +52,13 @@ class JobDetail(DetailView):
     
 class NewJobPost(CreateView):
      model= JobPost
-    #  form_class= PostForm
+     form_class= PostForm
      template_name= "new_jobpost.html"  
-     fields= '__all__' 
+    #  fields= ['activity_name','activity_rank','bungieid', 'notes', 'category'] 
+    
+     def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(NewJobPost, self).form_valid(form)
      
 class UpdateJob(UpdateView):
     model = JobPost
@@ -55,6 +69,20 @@ class DeleteJob(DeleteView):
     model= JobPost    
     template_name = 'delete_jobpost.html'
     success_url = reverse_lazy('gamepost_list')
+    
+def CatergoryView(request,cat):
+    cat = cat
+    print(cat)
+    jb_cat = ActivityType.objects.filter(name=cat)
+    print(jb_cat)
+    if not jb_cat :
+        return render(request,'bad_url.html')
+    else:  
+        ids = jb_cat.values_list('pk', flat=True)
+        print(ids[0])
+        category_post = JobPost.objects.filter(category=ids[0])
+        return render(request, 'jb_catergories.html',{'cat':cat,'category_post': category_post }) #'category_post': category_post    
+
 #------------ Auth Views ---------------------------- 
     
 # class Signup(View):

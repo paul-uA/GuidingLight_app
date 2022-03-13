@@ -2,15 +2,18 @@
 
 {% block content %}
 
-<h1>{{jobpost.activity_name}} - {{jobpost.date_created}}</h1>
+<h1>{{jobpost.category}} - {{jobpost.activity_name}} - {{jobpost.date_created}}</h1>
 <p>{{jobpost.activity_rank}} </p>
-<p>By:{{jobpost.bungieid}} <p><br/>
+<p>By:{{jobpost.bungieid}} {{user.id}} {{jobpost.user_id}} <p><br/>
 <br/> 
 {{jobpost.notes}}
 <br/> 
 {% if user.is_authenticated %}
+    {%if user.id == jobpost.user_id %}
+
 <a href="{%url 'jobpost_update' jobpost.pk %}"> Update </a> 
 <a href="{%url 'jobpost_delete' jobpost.pk %}"> Delete </a> 
+{%endif%}
 {%endif%}
 <br/> 
 

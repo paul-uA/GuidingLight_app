@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>List of Post</h1><br/>
-By Catergory:
-{%for cats in category%}
-<a href={% url 'jb_catergory' cats.name %}>{{cats.name}}</a>
-{% endfor %}
-<br/>
-<br/>
+{% if category_post %}
+<h1>Post by {{cat}}</h1>
 <ul>
-{%for post in jobpost%}
+{%for post in category_post%}
     <li><a href ="{% url 'job_detail' post.pk %}">{{post.activity_name}}</a> - by {{post.bungieid}} <br/>
         {{post.category}}<br/>
         {{post.activity_rank}}</li>
 
 
-{% endfor %}
+{% endfor %} 
 </ul>
+{% else %}
+<h1>This is not the Catergory your looking for.</h1>
+{% endif %}
+<a href="{%url 'gamepost_list' %}"> Back to List </a> 
 {% endblock content %}
