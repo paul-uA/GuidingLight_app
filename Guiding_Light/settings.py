@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import django_heroku
 from syslog import LOG_INFO
 from dotenv import load_dotenv
 load_dotenv()
@@ -133,3 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 # SIGNUP_REDIRECT_URL = 'create_gprofile'
+
+django_heroku.settings(locals())
