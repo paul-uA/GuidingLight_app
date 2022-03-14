@@ -34,15 +34,15 @@ class HowTo(TemplateView):
 
 # ---------------------------Job Board stuff ---------------------------------------
 
-class ListsPost(TemplateView):
+class ListsPost(ListView):
     template_name="post_list.html"
-    # model = JobPost
+    model = JobPost
     ordering= ['-date_created']
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["jobpost"] = JobPost.objects.all() # Here we are using the model to query the database for us.
+        context["jobpost"] = JobPost.objects.all().order_by('-date_created') # Here we are using the model to query the database for us.
         context['category']= ActivityType.objects.all()
-        print(context)
+        # print(context)
         return context
         
 
@@ -80,7 +80,7 @@ def CatergoryView(request,cat):
     else:  
         ids = jb_cat.values_list('pk', flat=True)
         print(ids[0])
-        category_post = JobPost.objects.filter(category=ids[0])
+        category_post = JobPost.objects.filter(category=ids[0]).order_by('-date_created')
         return render(request, 'jb_catergories.html',{'cat':cat,'category_post': category_post }) #'category_post': category_post    
 
 #------------ Auth Views ---------------------------- 

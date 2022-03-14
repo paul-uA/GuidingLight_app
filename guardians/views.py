@@ -63,13 +63,13 @@ class ChangePassword(PasswordChangeView):
 def PasswordSuccess(request):
     return render(request, 'registration/password_success.html',{})
 
-class ShowGProfile(DetailView):
+class ShowGProfile(TemplateView):
     model = GProfile  
     template_name = 'registration/user_gprofile.html' 
     
     def get_context_data(self, **kwargs):
         context = super(ShowGProfile, self).get_context_data(**kwargs)
-        user_info = get_object_or_404(GProfile, user_id=self.kwargs['pk'])
+        user_info = GProfile.objects.filter(user=self.kwargs['pk'])
         print(user_info)
         context['user_info'] = user_info    
         return context

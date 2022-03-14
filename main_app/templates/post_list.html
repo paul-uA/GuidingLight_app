@@ -10,12 +10,14 @@ By Catergory:
 <br/>
 <ul>
 {%for post in jobpost%}
-    <li><a href ="{% url 'job_detail' post.pk %}">{{post.activity_name}}</a> <br/>
-        - by {{post.bungieid}}
-        {{post.category}}<br/>
-        {{post.activity_rank}}</li>
-
-
-{% endfor %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title"><a href ="{% url 'job_detail' post.pk %}">{{post.activity_name}}</a></h5>
+            <h6 class="card-subtitle mb-2 text-muted"> - by {{post.bungieid}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted"> {{post.category}}</h6>
+            <p class="card-text">{{post.activity_rank}}</p>
+        </div>
+    </div>
+    {% endfor %}
 </ul>
 {% endblock content %}
