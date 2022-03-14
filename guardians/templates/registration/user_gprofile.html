@@ -8,6 +8,10 @@
 <h2>{{user_info.gamertag}} </h2>
 {% comment %} user profile picture future {{user_info.bio}} </h2> {% endcomment %}
 
-
+{% if user.is_authenticated %}
+    {%if user.id == user_info.user_id%}
+<a href="{%url 'edit_gprofile' user_info.user_id %}"> Update Guardian </a> 
+{%endif%}
+{%endif%}
 
 {% endblock %}

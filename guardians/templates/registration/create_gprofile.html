@@ -2,14 +2,14 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<h1>New Job Post</h1>
+<h1>Create Profile</h1>
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Submit" />
 </form>
 {% else %}
-<h1> Please login to create a new Job Posting</h1>
+<h1> Please login to create a Profile</h1>
 {%endif%}
 <a href="{%url 'gamepost_list' %}"> Back to List </a> 
 {% endblock content %}

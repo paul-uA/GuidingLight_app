@@ -1,4 +1,5 @@
 
+from xml.parsers.expat import model
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, date
@@ -39,7 +40,8 @@ class GProfile(models.Model):
     def __str__(self):
         return str(self.user)
     
-        
+    def get_absolute_url(self):
+        return reverse('show_gprofile', kwargs={'pk':self.pk})   
         
 class GameClass(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)

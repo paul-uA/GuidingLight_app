@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'Guiding_Light.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'GLdb',
+        'NAME': 'gldb',
     }
 }
 
@@ -132,3 +132,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+# SIGNUP_REDIRECT_URL = 'create_gprofile'

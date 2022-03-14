@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>numbers</p>
+{{user.id}}
+</br>
+{{gprofile.user_id}}
+{% if user.is_authenticated %}
+    {%if user.id == gprofile.pk%}
+        <h1>Update Guardian Profile</h1>
+        <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit" />
+    {% else %}
+        <h1> This is not your Guardian Profile</h1>
+        <a href="{%url 'home' %}"> Back Home </a> 
+    {%endif%}   
+{% else %}
+    <h1> Please login to update Guardian Profile</h1>
+        <a href="{%url 'login' %}"> Log in </a> 
+{%endif%}
+{% endblock content %}

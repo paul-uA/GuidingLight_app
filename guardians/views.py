@@ -1,7 +1,10 @@
 
 from ast import arg
+from dataclasses import fields
+from json import load
 from multiprocessing import context
 from pyexpat import model
+from re import template
 from webbrowser import get
 from django.shortcuts import get_object_or_404, render
 from django.views import View # class based "generic" view - from django - 
@@ -10,11 +13,16 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView , ListView
 
 from main_app.models import GProfile
-from .forms import SignUpForm, ProfileEdit
+from .forms import SignUpForm, ProfileEdit, GProfileForm
 
 from django.http import HttpResponse 
 from django.shortcuts import redirect, get_list_or_404
 from django.urls import reverse, reverse_lazy
+
+# import requests
+# import os
+# from dotenv import load_dotenv
+# load_dorenv()
 
 # imports related to signup
 from django.contrib.auth import login
@@ -36,7 +44,7 @@ class UserRegister(View):
         if form.is_valid():
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('login')
+            return redirect('create_gprofile')
         else:
             context = {"form": form}
             return render(request, "registration/register.html", context)
@@ -60,7 +68,6 @@ class ShowGProfile(DetailView):
     template_name = 'registration/user_gprofile.html' 
     
     def get_context_data(self, **kwargs):
-        gprofile= GProfile.objects.all()
         context = super(ShowGProfile, self).get_context_data(**kwargs)
         user_info = get_object_or_404(GProfile, user_id=self.kwargs['pk'])
         print(user_info)
@@ -69,9 +76,22 @@ class ShowGProfile(DetailView):
     
 
 class EditGProfile(UpdateView):  
-    model = GProfile
-    tempalte_name= 'registration/edit_gprofile.html' 
+    model = GProfile.objects.filter()
+    template_name= 'registration/edit_gprofile.html' 
+    fields = [ 'bungiename', 'img','bio', 'bungieID','bungieIDLong', 'gamertag']
+    success_url = reverse_lazy('home')
+
+
+class CreateGProfile(CreateView):
+    model= GProfile
+    form_class = GProfileForm
+    # fields = ['user','bungiename','img','bio','bungieID','bungieIDLong','gamertag']
+    template_name = 'registration/create_gprofile.html'    
+    success_url = reverse_lazy('home') 
     
+    def form_valid(self, form):
+        form.instance.user=self.request.user
+        return super().form_valid(form)
      
 # class GamerProfile(TemplateView):
 #     template_name = "profile.html" 

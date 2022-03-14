@@ -37,7 +37,7 @@ class HowTo(TemplateView):
 class ListsPost(TemplateView):
     template_name="post_list.html"
     # model = JobPost
-    # ordering= ['-date_created']
+    ordering= ['-date_created']
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["jobpost"] = JobPost.objects.all() # Here we are using the model to query the database for us.

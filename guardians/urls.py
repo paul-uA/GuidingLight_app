@@ -1,7 +1,7 @@
 from re import template
 from django import views
 from django.urls import path
-from .views import UserRegister, ProfileUpdate, ChangePassword, PasswordSuccess,ShowGProfile, EditGProfile
+from .views import UserRegister, ProfileUpdate, ChangePassword, PasswordSuccess,ShowGProfile, EditGProfile, CreateGProfile
 from django.contrib.auth import views as auth_views
 
 
@@ -13,6 +13,7 @@ urlpatterns = [
     path('password_success', PasswordSuccess ,name='password_success'),
     path('gprofile/<int:pk>',ShowGProfile.as_view(), name='show_gprofile' ),
     path('gprofile/<int:pk>/edit', EditGProfile.as_view(), name='edit_gprofile'),
+    path('gprofile/create', CreateGProfile.as_view(), name= 'create_gprofile')
  
 #  path('profile/', views.GamerProfile.as_view(), name='profile'),
 #  path('profile/new/', views.ProfileCreate.as_view(), name="profile_create"),
