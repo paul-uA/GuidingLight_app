@@ -12,4 +12,12 @@
 <h1> Please login to create a new Job Posting</h1>
 {%endif%}
 <a href="{%url 'gamepost_list' %}"> Back to List </a> 
+<script>
+
+    const form = document.getElementsByTagName('input')
+
+    for (let field in form){
+            form[field].className += 'form-control-md'
+    }
+</script>
 {% endblock content %}

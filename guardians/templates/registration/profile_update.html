@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Update {{user.username}} </a></h1>
+
+
+
+{% comment %} - <a href="{% url 'profile_detail' profile.pk %}">Back to {{profile.bungiename}} page {{profile.bungiename}}{% endcomment %}
+<form method="post">
+    {% csrf_token %}
+    <!-- CSRF TOKEN -->
+    {{ form.as_p }}
+    <input class="btn btn-secondary" type="submit" value="Update" />
+</form>
+
+{% endblock %}

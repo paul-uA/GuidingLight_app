@@ -13,7 +13,7 @@ class PostForm(forms.ModelForm):
         
         widgets = {
             'activity_name' : forms.TextInput(attrs={'class': 'form-control'}),
-            'bungieid' : forms.TextInput(attrs={'class': 'form-control'}),
+            'bungieid' : forms.TextInput(attrs={'class': 'form-control', 'placeholder' :"Bungie#7777"}),
             'activity_rank' : forms.TextInput(attrs={'class': 'form-control'})
             
         }

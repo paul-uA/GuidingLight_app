@@ -6,7 +6,7 @@
 <ul>
 {%for post in category_post%}
 <div class="card" style="width: 18rem;">
-    <div class="card-body">
+    <div class="card-body bg-dark text-info">
         <h5 class="card-title"><a href ="{% url 'job_detail' post.pk %}">{{post.activity_name}}</a></h5>
         <h6 class="card-subtitle mb-2 text-muted"> - by {{post.bungieid}}</h6>
         <h6 class="card-subtitle mb-2 text-muted"> {{post.category}}</h6>
@@ -18,5 +18,5 @@
 {% else %}
 <h1>This is not the Catergory your looking for.</h1>
 {% endif %}
-<a href="{%url 'gamepost_list' %}"> Back to List </a> 
+<a href="{%url 'gamepost_list' %}"> Back to Bounty Board </a> 
 {% endblock content %}
