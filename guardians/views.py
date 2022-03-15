@@ -49,13 +49,16 @@ class UserRegister(View):
             context = {"form": form}
             return render(request, "registration/register.html", context)
 
+@method_decorator(login_required, name="dispatch")
 class ProfileUpdate(UpdateView):
         form_class = ProfileEdit
         template_name = 'registration/profile_update.html'
         success_url = reverse_lazy('home')
         def get_object(self):
             return self.request.user
-    
+        
+        
+@method_decorator(login_required, name="dispatch")    
 class ChangePassword(PasswordChangeView):
     form_class =PasswordChangeForm
     success_url = reverse_lazy('password_success')
@@ -76,14 +79,14 @@ class ShowGProfile(TemplateView):
         print(context)  
         return context
     
-
+@method_decorator(login_required, name="dispatch")
 class EditGProfile(UpdateView):  
     model = GProfile
     template_name= 'registration/edit_gprofile.html' 
     fields = [ 'bungiename', 'img','bio', 'bungieID','bungieIDLong', 'gamertag']
     success_url = reverse_lazy('home')
 
-
+@method_decorator(login_required, name="dispatch")
 class CreateGProfile(CreateView):
     model= GProfile
     form_class = GProfileForm

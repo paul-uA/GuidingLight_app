@@ -50,6 +50,7 @@ class JobDetail(DetailView):
     model = JobPost
     template_name="jobpost_detail.html"
     
+@method_decorator(login_required, name="dispatch")    
 class NewJobPost(CreateView):
      model= JobPost
      form_class= PostForm
@@ -59,12 +60,14 @@ class NewJobPost(CreateView):
      def form_valid(self, form):
         form.instance.user = self.request.user
         return super(NewJobPost, self).form_valid(form)
-     
+    
+@method_decorator(login_required, name="dispatch")     
 class UpdateJob(UpdateView):
     model = JobPost
     template_name = 'update_job.html'
     fields=['activity_name','activity_rank']
 
+@method_decorator(login_required, name="dispatch")
 class DeleteJob(DeleteView):
     model= JobPost    
     template_name = 'delete_jobpost.html'

@@ -37,7 +37,7 @@
                     <div class="col-sm-12">
                         {% if user.is_authenticated %}
                         {%if user.id == user_info.user_id%}
-                      <a class="btn btn-info " target="__blank" href="{%url 'edit_gprofile' user_info.user_id %}">Update Guardian</a>
+                      <a class="btn btn-info " href="{%url 'edit_gprofile' user_info.user_id %}">Update Guardian</a>
                       {%endif%}
                       {%endif%}
                     </div>

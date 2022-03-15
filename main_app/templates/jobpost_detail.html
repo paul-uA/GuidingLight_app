@@ -4,7 +4,7 @@
 
 <h1>{{jobpost.category}} - {{jobpost.activity_name}} - {{jobpost.date_created}}</h1>
 <p>{{jobpost.activity_rank}} </p>
-<p>By:{{jobpost.bungieid}} <p><br/>
+<p>By:</p><a href="{%url 'show_gprofile' jobpost.user_id %}"> {{jobpost.bungieid}}  </a><br/>
 <br/> 
 {{jobpost.notes}}
 <br/> 
