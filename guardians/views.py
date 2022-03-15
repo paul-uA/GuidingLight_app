@@ -67,16 +67,18 @@ class ShowGProfile(TemplateView):
     model = GProfile  
     template_name = 'registration/user_gprofile.html' 
     
-    def get_context_data(self, **kwargs):
-        context = super(ShowGProfile, self).get_context_data(**kwargs)
-        user_info = GProfile.objects.filter(user=self.kwargs['pk'])
-        print(user_info)
-        context['user_info'] = user_info    
+    def get_context_data(self,*args ,**kwargs):
+        context = super(ShowGProfile, self).get_context_data(*args,**kwargs)
+        # print(GProfile.objects.filter(user=self.kwargs['pk']))
+        user_info = GProfile.objects.get(user=self.kwargs['pk'])
+        # print(type(user_info))
+        context['user_info'] = user_info  
+        print(context)  
         return context
     
 
 class EditGProfile(UpdateView):  
-    model = GProfile.objects.filter()
+    model = GProfile
     template_name= 'registration/edit_gprofile.html' 
     fields = [ 'bungiename', 'img','bio', 'bungieID','bungieIDLong', 'gamertag']
     success_url = reverse_lazy('home')

@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>numbers</p>
-{{user.id}}
-</br>
-{{gprofile.user_id}}
 {% if user.is_authenticated %}
     {%if user.id == gprofile.pk%}
         <h1>Update Guardian Profile</h1>
