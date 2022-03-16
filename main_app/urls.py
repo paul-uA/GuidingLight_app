@@ -9,6 +9,7 @@ urlpatterns = [
     path('jobboard/', views.ListsPost.as_view(), name='gamepost_list'),
     path('jobboard/<int:pk>/', views.JobDetail.as_view(), name="job_detail"),
     path('jobboard/new', views.NewJobPost.as_view(), name="jobpost_create"),
+    path('jobboard/<int:pk>/addcomment', views.AddComment.as_view(), name="jobpost_addcomment"),
     path('jobboard/<int:pk>/update', views.UpdateJob.as_view(), name="jobpost_update"),
     path('jobboard/<int:pk>/delete', views.DeleteJob.as_view(), name="jobpost_delete"),
     path('jobboard/<str:cat>', views.CatergoryView, name='jb_catergory'),

@@ -1,5 +1,7 @@
+from dataclasses import fields
+from pyexpat import model
 from django import forms
-from .models import JobPost , ActivityType
+from .models import JobPost , ActivityType, Comment
 
 # choices = ActivityType.objects.all().values_list('name', 'name')
 # choice_list=[]
@@ -20,3 +22,12 @@ class PostForm(forms.ModelForm):
             
         }
         
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model=Comment
+        fields= ('username','body')
+        
+        widgets = {
+            'username' : forms.TextInput(attrs={'class': 'form-control-md'}),
+            'body' : forms.Textarea(attrs={'class': 'form-control'}),
+        }

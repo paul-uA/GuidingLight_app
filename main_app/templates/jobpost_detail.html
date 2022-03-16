@@ -16,7 +16,22 @@
 {%endif%}
 {%endif%}
 <br/> 
+<br/> 
+<h2>Comments</h2>
 
-<br/>
+</hr>
+{%if not jobpost.comments.all  %}
+    <p> No comments yet .....</p>
+    <a href={%url 'jobpost_addcomment' jobpost.pk %}}> Add Comment</a>
+{% else %}
+    {% for comments in jobpost.comments.all%}
+    {{comments.username}}- {{comments.created}}
+    </br>
+    {{comments.body}}
+    {% endfor %}
+    <a href={%url 'jobpost_addcomment' jobpost.pk %}> Add Comment</a>
+{%endif%}
+<br/><br/> 
+</hr>
 <a href="{%url 'gamepost_list' %}"> Back to List </a> 
 {% endblock %}

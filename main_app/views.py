@@ -1,6 +1,4 @@
-from pyexpat import model
-from unicodedata import category, name
-from urllib import request
+
 from django.shortcuts import render
 from django.views import View # class based "generic" view - from django - 
 from django.views.generic.base import TemplateView
@@ -8,8 +6,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView , ListView
 
 from django.http import HttpResponse 
-from .models import ActivityType, Profile , GameClass , JobPost 
-from  .forms import PostForm
+from .models import ActivityType, Profile , GameClass , JobPost, Comment 
+from  .forms import PostForm, CommentForm
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 
@@ -44,11 +42,25 @@ class ListsPost(ListView):
         context['category']= ActivityType.objects.all()
         # print(context)
         return context
-        
+ 
+@method_decorator(login_required, name="dispatch")    
+class AddComment(CreateView):
+     model= Comment
+     form_class= CommentForm
+     template_name= "add_comment.html"  
+    #  fields= ['activity_name','activity_rank','bungieid', 'notes', 'category'] 
+     success_url= reverse_lazy('gamepost_list')     
+     
+     def form_valid(self, form):
+         print(self.kwargs) 
+         form.instance.post_id= self.kwargs['pk']
+         return super().form_valid(form) 
 
 class JobDetail(DetailView):
     model = JobPost
     template_name="jobpost_detail.html"
+    
+    
     
 @method_decorator(login_required, name="dispatch")    
 class NewJobPost(CreateView):
@@ -85,6 +97,8 @@ def CatergoryView(request,cat):
         print(ids[0])
         category_post = JobPost.objects.filter(category=ids[0]).order_by('-date_created')
         return render(request, 'jb_catergories.html',{'cat':cat,'category_post': category_post }) #'category_post': category_post    
+    
+# ---------------------------Job Board stuff --------------   
 
 #------------ Auth Views ---------------------------- 
     

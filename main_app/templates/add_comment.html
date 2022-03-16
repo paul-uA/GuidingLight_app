@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Add Comment to Bounty</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class='btn btn-secondary' type="submit" value="Add Comment" />
+</form>
+{% else %}
+<h1> Please login to create Comments</h1>
+{%endif%}
+<a href="{%url 'gamepost_list' %}"> Back to List </a> 
+
+{% endblock content %}

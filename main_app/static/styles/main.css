@@ -3,8 +3,9 @@
     color: #ffffff;
     min-height: 100vh;
   }
-
-  
+hr{
+  background-color: white;
+}
 /*   
   h1,
   h2,
